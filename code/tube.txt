@@ -1,0 +1,105 @@
+package com.mygdx.game.sprites;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+
+import java.util.Random;
+
+public class Tube {
+    public static final int TUBE_WIDTH = 52;
+    public static final int FLUCTUATION = 130;
+    public static final int TUBE_GAP = 130;
+    public static final int LOWEST_OPENING = 130;
+
+    private Texture topTube, bottomTube;
+    private Vector2 posTopTube, posBotTube;
+    private Random rand;
+
+    private Rectangle boundsTop, boundsBot;
+
+    public Texture getTopTube() {
+        return topTube;
+    }
+
+    public Texture getBottomTube() {
+        return bottomTube;
+    }
+
+    public Vector2 getPosTopTube() {
+        return posTopTube;
+    }
+
+    public Vector2 getPosBotTube() {
+        return posBotTube;
+    }
+
+    public Tube(float x, int a){
+        switch (a) {
+            case 0:
+                topTube = new Texture("tube1-2.png");
+                bottomTube = new Texture("tube1.png");
+                break;
+            case 1:
+                topTube = new Texture("tube2-2.png");
+                bottomTube = new Texture("tube2.png");
+                break;
+            case 2:
+                topTube = new Texture("tube3-2.png");
+                bottomTube = new Texture("tube3.png");
+                break;
+            case 3:
+                topTube = new Texture("tube4-2.png");
+                bottomTube = new Texture("tube4.png");
+                break;
+            case 4:
+                topTube = new Texture("tube5-2.png");
+                bottomTube = new Texture("tube5.png");
+                break;
+            case 5:
+                topTube = new Texture("tube6-2.png");
+                bottomTube = new Texture("tube6.png");
+                break;
+            case 6:
+                topTube = new Texture("tube7-2.png");
+                bottomTube = new Texture("tube7.png");
+                break;
+            case 7:
+                topTube = new Texture("tube8-2.png");
+                bottomTube = new Texture("tube8.png");
+                break;
+            case 8:
+                topTube = new Texture("tube9-2.png");
+                bottomTube = new Texture("tube9.png");
+                break;
+            default:
+                topTube = new Texture("tube1-2.png");
+                bottomTube = new Texture("tube1.png");
+                break;
+        }
+
+        rand = new Random();
+
+        posTopTube = new Vector2(x + 130, rand.nextInt(FLUCTUATION) + TUBE_GAP +LOWEST_OPENING);
+        posBotTube = new Vector2(x + 130, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+
+        boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
+        boundsBot = new Rectangle(posBotTube.x, posBotTube.y, bottomTube.getWidth(), bottomTube.getHeight());
+    }
+
+    public void reposition(float x){
+        posTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP +LOWEST_OPENING);
+        posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+        boundsTop.setPosition(posTopTube.x, posTopTube.y);
+        boundsBot.setPosition(posBotTube.x, posBotTube.y);
+    }
+
+    public boolean collision(Rectangle player){
+        return player.overlaps(boundsTop) || player.overlaps(boundsBot);
+    }
+
+    public void dispose() {
+        topTube.dispose();
+        bottomTube.dispose();
+    }
+}

@@ -1,0 +1,76 @@
+package com.mygdx.game.states;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.Flappy;
+import com.mygdx.game.sprites.Bird;
+
+public class ChooseState extends State {
+
+    private Texture background;
+    private Texture chooseTable;
+    private Texture steve;
+    private Texture joe;
+    private Texture vanessa;
+
+    public ChooseState(GameStateManager gsm) {
+
+        super(gsm);
+
+        background = new Texture("background.png");
+        chooseTable = new Texture("choose.png");
+        steve = new Texture("chooseSteve.png");
+        vanessa = new Texture("chooseVanessa.png");
+        joe = new Texture("chooseJoe.png");
+        //camera.setToOrtho(false, Flappy.WIDTH / 2, Flappy.HEIGHT / 2);
+    }
+
+    @Override
+    protected void handleInput() {
+        Vector3 touchPos = new Vector3();
+        if (Gdx.input.justTouched()){
+            camera.unproject(touchPos);
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            if (touchPos.x > 10 && touchPos.x < 10 + steve.getWidth() && touchPos.y > 443 && touchPos.y < 443 + steve.getHeight()) {
+                Bird.status = 1;
+                gsm.set(new PlayState(gsm));
+            }
+            if (touchPos.x > 170 && touchPos.x < 170 + vanessa.getWidth() && touchPos.y > 443 && touchPos.y < 443 + vanessa.getHeight()) {
+                Bird.status = 2;
+                gsm.set(new PlayState(gsm));
+            }
+            if (touchPos.x > 330 && touchPos.x < 330 + joe.getWidth() && touchPos.y > 443 && touchPos.y < 443 + joe.getHeight()) {
+                Bird.status = 3;
+                gsm.set(new PlayState(gsm));
+            }
+        }
+    }
+
+    @Override
+    public void update(float dt) {
+        handleInput();
+    }
+
+    @Override
+    public void render(SpriteBatch sb) {
+        sb.begin();
+        sb.draw(background,0,0, Flappy.WIDTH, Flappy.HEIGHT);
+        sb.draw(chooseTable, Flappy.WIDTH / 2 - chooseTable.getWidth()/2 , Flappy.HEIGHT / 2);
+        sb.draw(steve, 10, 170);
+        sb.draw(vanessa, 170, 170);
+        sb.draw(joe, 330, 170);
+        sb.end();
+    }
+
+    @Override
+    public void dispose() {
+        background.dispose();
+        chooseTable.dispose();
+        steve.dispose();
+        vanessa.dispose();
+        joe.dispose();
+    }
+}
