@@ -37,7 +37,7 @@ public class FontUtils {
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
         parameter.characters = RUSSIAN_CHARACTERS;
         parameter.size = 124;
-        parameter.color = Color.RED;
+        parameter.color = Color.BLACK;
         parameter.borderWidth = 0;
         parameter.borderColor = Color.BLACK;
         return parameter;

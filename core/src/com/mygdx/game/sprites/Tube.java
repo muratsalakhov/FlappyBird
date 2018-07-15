@@ -54,7 +54,7 @@ public class Tube {
 
     public void draw(SpriteBatch batch) {
         batch.draw(topTube, posTopTube.x, posTopTube.y, TUBE_WIDTH, TUBE_HEIGHT);
-        batch.draw(topTube, posBotTube.x, posBotTube.y, TUBE_WIDTH, TUBE_HEIGHT);
+        batch.draw(bottomTube, posBotTube.x, posBotTube.y, TUBE_WIDTH, TUBE_HEIGHT);
     }
 
     public boolean collision(Bird player) {
